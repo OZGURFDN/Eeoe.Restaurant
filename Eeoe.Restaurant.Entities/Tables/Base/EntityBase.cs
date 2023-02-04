@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.AccessControl;
 
 namespace Eeoe.Restaurant.Entities.Tables.Base
 {
@@ -10,5 +9,6 @@ namespace Eeoe.Restaurant.Entities.Tables.Base
         public DateTime EklenmeTarihi { get; set; }
         public String Duzenleyen { get; set; }
         public DateTime DuzenlenmeTarihi { get; set; }
+        public string Aciklama { get; set; }
     }
 }
