@@ -1,0 +1,1 @@
+﻿Base Kısmında Tablolarımızı Ve Virtual Tablo Yapımızı Oluşturuyoruz.

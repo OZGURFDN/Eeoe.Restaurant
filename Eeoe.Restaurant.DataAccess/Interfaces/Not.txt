@@ -1,0 +1,1 @@
+﻿Update Delete Insert İşlemleri Tüm Yapı için Genel Tanımlama Yapılır

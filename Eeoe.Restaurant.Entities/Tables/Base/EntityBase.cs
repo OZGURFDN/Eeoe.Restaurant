@@ -1,8 +1,9 @@
 ﻿using System;
+using Eeoe.Restaurant.Entities.Interfaces;
 
 namespace Eeoe.Restaurant.Entities.Tables.Base
 {
-    public class EntityBase
+    public class EntityBase:IEntity
     {
         public Guid Id { get; set; }
         public string Ekleyen { get; set; }
