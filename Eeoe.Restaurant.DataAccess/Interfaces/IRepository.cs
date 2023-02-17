@@ -9,5 +9,6 @@ namespace Eeoe.Restaurant.DataAccess.Interfaces
     public class IRepository
     {
 
+
     }
 }
