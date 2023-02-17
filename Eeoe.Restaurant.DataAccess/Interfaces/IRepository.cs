@@ -24,14 +24,5 @@ namespace Eeoe.Restaurant.DataAccess.Interfaces
         void Delete(IEnumerable<TEntity> entities);
 
 
-
-
-
-        void Remove(TEntity entity);
-        void Remove(IEnumerable<TEntity> entities);
-        void RemoveAll();
-
-
-
     }
 }
