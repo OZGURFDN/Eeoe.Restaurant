@@ -3,6 +3,7 @@ using Eeoe.Restaurant.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -12,9 +13,16 @@ namespace Eeoe.Restaurant.DataAccess.Dals.Base
     {
         private bool disposedValue;
 
+        private readonly DbContext _Context;
+
+        public Reporsitory(DbContext context)
+        {
+            _Context=context;
+        }
+
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();//son ne oldu ya
+            _Context.Entry(entity).State = EntityState.Added;
         }
 
         public void Add(IEnumerable<TEntity> entities)
