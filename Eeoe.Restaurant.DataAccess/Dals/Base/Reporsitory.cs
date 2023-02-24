@@ -14,7 +14,7 @@ namespace Eeoe.Restaurant.DataAccess.Dals.Base
 
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();//son ne oldu ya
         }
 
         public void Add(IEnumerable<TEntity> entities)
@@ -34,15 +34,15 @@ namespace Eeoe.Restaurant.DataAccess.Dals.Base
 
         public BindingList<TEntity> BindingList()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();     
         }
 
         public void Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();          
         }
 
-        public void Delete(IEnumerable<TEntity> entities)
+        public void Delete(IEnumerable<TEntity> entities) 
         {
             throw new NotImplementedException();
         }
