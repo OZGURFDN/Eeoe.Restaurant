@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -13,96 +14,118 @@ namespace Eeoe.Restaurant.DataAccess.Dals.Base
     {
         private bool disposedValue;
 
-        private readonly DbContext _Context;
-
+        private readonly DbContext _context;
         public Reporsitory(DbContext context)
         {
-            _Context=context;
+            _context = context;
         }
-
         public void Add(TEntity entity)
         {
-            _Context.Entry(entity).State = EntityState.Added;
+            _context.Entry(entity).State = EntityState.Added;
         }
 
         public void Add(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            foreach (var entity in entities)
+            {
+                _context.Entry(entity).State = EntityState.Added;
+            }
         }
 
         public void AddOrUpdate(TEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Set<TEntity>().AddOrUpdate(entity);
         }
 
         public void AddOrUpdate(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            foreach (var entity in entities)
+            {
+                _context.Set<TEntity>().AddOrUpdate(entity);
+            }
         }
-
-        public BindingList<TEntity> BindingList()
-        {
-            throw new NotImplementedException();     
-        }
-
-        public void Delete(TEntity entity)
-        {
-            throw new NotImplementedException();          
-        }
-
-        public void Delete(IEnumerable<TEntity> entities) 
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Expression<Func<TEntity, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Exist(Expression<Func<TEntity, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TEntity Get(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>>[] includes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool HasChange()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Load(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>>[] includes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<TEntity> Select(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TEntity>> selector, Expression<Func<TEntity, object>>[] include)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<TResult> Select<TResult>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, object>>[] include)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public void Update(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            foreach (var entity in entities)
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+            }
+        }
+
+        public void Delete(TEntity entity)
+        {
+            _context.Entry(entity).State = EntityState.Deleted;
+        }
+
+        public void Delete(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                _context.Entry(entity).State = EntityState.Deleted;
+            }
+        }
+
+        public void Delete(Expression<Func<TEntity, bool>> filter)
+        {
+            _context.Set<TEntity>().RemoveRange(_context.Set<TEntity>().Where(filter));
+        }
+
+        public bool Exist(Expression<Func<TEntity, bool>> filter)
+        {
+            return _context.Set<TEntity>().Any(filter);
+        }
+
+        public TEntity Get(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes)
+        {
+            return _context.Set<TEntity>().SingleOrDefault(filter);
+        }
+
+        public IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>>[] includes)
+        {
+            return filter == null
+                ? _context.Set<TEntity>().AsNoTracking().ToList()
+                : _context.Set<TEntity>().Where(filter).AsNoTracking().ToList();
+        }
+
+        public bool HasChange()
+        {
+            return _context.ChangeTracker.Entries<TEntity>().Any();
+        }
+
+        public void Load(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>>[] includes)
+        {
+            if (filter == null)
+            {
+                _context.Set<TEntity>().Load();
+            }
+            else
+            {
+                _context.Set<TEntity>().Where(filter).Load();
+            }
+        }
+
+        public IQueryable<TEntity> Select(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TEntity>> selector, Expression<Func<TEntity, object>>[] include)
+        {
+            return filter == null
+                ? _context.Set<TEntity>().Select(selector)
+                : _context.Set<TEntity>().Where(filter).Select(selector);
+        }
+
+        public IQueryable<TResult> Select<TResult>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, object>>[] include)
+        {
+            return filter == null
+                ? _context.Set<TEntity>().Select(selector)
+                : _context.Set<TEntity>().Where(filter).Select(selector);
+        }
+
+        public BindingList<TEntity> BindingList()
+        {
+            return _context.Set<TEntity>().Local.ToBindingList();
         }
 
         protected virtual void Dispose(bool disposing)
