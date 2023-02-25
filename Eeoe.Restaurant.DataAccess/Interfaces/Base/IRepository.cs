@@ -28,10 +28,10 @@ namespace Eeoe.Restaurant.DataAccess.Interfaces.Base
         bool Exist(Expression<Func<TEntity, bool>> filter);
         //Birden Fazla Parametreli Çağırma İşlemi Yapılıyor Params Parametresi ile Mesela Urun Tablosundaki Virtual Tabloları Çağırmak için Birden Fazla veri İçi
         IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> filter,
-            Expression<Func<TEntity, object>>[] includes);
-        IQueryable<TEntity> Select(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TEntity>> selector, Expression<Func<TEntity, object>>[] include);
-        IQueryable<TResult> Select<TResult>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, object>>[] include);
-        void Load(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>>[] includes);
+            params Expression<Func<TEntity, object>>[] includes);
+        IQueryable<TEntity> Select(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TEntity>> selector, params Expression<Func<TEntity, object>>[] include);
+        IQueryable<TResult> Select<TResult>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, object>>[] includes);
+        void Load(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes);
         bool HasChange();
         BindingList<TEntity> BindingList();
     }

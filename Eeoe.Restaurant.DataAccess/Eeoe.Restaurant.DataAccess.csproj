@@ -68,6 +68,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Eeoe.Restaurant.Core\Eeoe.Restaurant.Core.csproj">
+      <Project>{0C214A6C-8BD7-4AB1-909A-076ED78B5454}</Project>
+      <Name>Eeoe.Restaurant.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eeoe.Restaurant.Entities\Eeoe.Restaurant.Entities.csproj">
       <Project>{EA7CBAC4-3D5C-45A3-97B7-364BAC52CD9F}</Project>
       <Name>Eeoe.Restaurant.Entities</Name>
