@@ -9,7 +9,7 @@ namespace Eeoe.Restaurant.DataAccess.Dals
     {
         public EkMalzemeDal(DbContext context) : base(context)
         {
-
+             
         }
     }
 }
