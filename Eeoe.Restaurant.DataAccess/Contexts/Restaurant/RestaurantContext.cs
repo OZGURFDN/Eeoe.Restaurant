@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Eeoe.Restaurant.DataAccess.Contexts.Base;
+using Eeoe.Restaurant.DataAccess.Mappings;
 using Eeoe.Restaurant.Entities.Tables;
 using Eeoe.Restaurant.Entities.Tables.Base;
 
@@ -39,6 +40,7 @@ namespace Eeoe.Restaurant.DataAccess.Contexts.Restaurant
                     c.Property(e => e.EklenmeTarihi).HasColumnName("EklenmeTarihi");
                 }
             });
+            modelBuilder.Configurations.Add(new UrunMap());
         }
     }
 }
