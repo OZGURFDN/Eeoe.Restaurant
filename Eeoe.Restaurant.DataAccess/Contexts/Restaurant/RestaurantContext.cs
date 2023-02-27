@@ -12,7 +12,6 @@ namespace Eeoe.Restaurant.DataAccess.Contexts.Restaurant
         {
 
         }
-
         public RestaurantContext(string connectionString) : base(connectionString)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<RestaurantContext, RestaurantConfiguration>());
@@ -40,7 +39,20 @@ namespace Eeoe.Restaurant.DataAccess.Contexts.Restaurant
                     c.Property(e => e.EklenmeTarihi).HasColumnName("EklenmeTarihi");
                 }
             });
+            //Bire Çok İlişki Tanımı Yapıldı.
+            modelBuilder.Entity<Porsiyon>().HasRequired(c => c.Urun).WithMany(c => c.Porsiyonlar)
+                .HasForeignKey(c => c.UrunId);
+
+            modelBuilder.Entity<EkMalzeme>().HasRequired(c => c.Urun).WithMany(c => c.EkMalzemeler)
+                .HasForeignKey(c => c.UrunId);
+            modelBuilder.Entity<Urun>().HasRequired(c => c.UrunGrup).WithOptional().Map(c => c.MapKey("UrunGrupId"));
+
+            modelBuilder.Entity<Porsiyon>().HasRequired(c => c.Birim).WithOptional().Map(c => c.MapKey("BirimId"));
+
             modelBuilder.Configurations.Add(new UrunMap());
+            modelBuilder.Configurations.Add(new TanimMap());
+            modelBuilder.Configurations.Add(new PorsiyonMap());
+            modelBuilder.Configurations.Add(new EkMalzemeMap());
         }
     }
 }
