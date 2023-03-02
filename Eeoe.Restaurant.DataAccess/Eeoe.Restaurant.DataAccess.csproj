@@ -69,6 +69,8 @@
     <Compile Include="Mappings\TanimMap.cs" />
     <Compile Include="Mappings\UrunMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\RestaurantUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
